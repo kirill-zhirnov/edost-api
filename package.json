@@ -1,0 +1,33 @@
+{
+  "name": "edost-api",
+  "version": "0.0.1",
+  "description": " Node.JS library for calculating a cost of delivery with edost.ru API ",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kirill-zhirnov/edost-api.git"
+  },
+  "keywords": [
+    "edost",
+    "edost.ru"
+  ],
+  "author": "Kirill Zhirnov",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/kirill-zhirnov/edost-api/issues"
+  },
+  "homepage": "https://github.com/kirill-zhirnov/edost-api#readme",
+  "devDependencies": {
+    "grunt": "^1.0.1",
+    "grunt-contrib-clean": "^1.0.0",
+    "grunt-contrib-coffee": "^1.0.0",
+    "grunt-contrib-watch": "^1.0.0",
+    "load-grunt-tasks": "^3.5.2"
+  },
+  "dependencies": {
+    "q": "^1.4.1"
+  }
+}
