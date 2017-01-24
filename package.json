@@ -1,6 +1,6 @@
 {
   "name": "edost-api",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": " Node.JS library for calculating a cost of delivery with edost.ru API ",
   "main": "index.js",
   "scripts": {
@@ -15,7 +15,9 @@
     "edost.ru"
   ],
   "author": "Kirill Zhirnov",
-  "contributors" : ["Igor Mikhalev"],
+  "contributors": [
+    "Igor Mikhalev"
+  ],
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/kirill-zhirnov/edost-api/issues"
