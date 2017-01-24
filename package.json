@@ -1,6 +1,6 @@
 {
   "name": "edost-api",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": " Node.JS library for calculating a cost of delivery with edost.ru API ",
   "main": "index.js",
   "scripts": {
