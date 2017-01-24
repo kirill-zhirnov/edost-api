@@ -8,12 +8,12 @@ _ = require 'underscore'
 
 class Api
 	@API_URL : 'http://www.edost.ru/edost_calc_kln.php'
-	
+
 	constructor : (@shopId, @pass) ->
 
 	calcDelivery : (toCity, weight, insurance, params = {}) ->
 		deferred = Q.defer()
-		
+
 		Q()
 		.then () =>
 			return @makeRequest @prepareParams(toCity, weight, insurance, params)
@@ -82,7 +82,7 @@ class Api
 	parseResponse : (xml) ->
 		deferred = Q.defer()
 
-		Q.nfcall parseString, xml
+		Q.nfcall parseString, xml, { explicitArray: false }
 		.then (result) =>
 			result = result.rsp
 
