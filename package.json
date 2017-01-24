@@ -15,6 +15,7 @@
     "edost.ru"
   ],
   "author": "Kirill Zhirnov",
+  "contributors" : ["Igor Mikhalev"],
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/kirill-zhirnov/edost-api/issues"
