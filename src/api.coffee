@@ -86,8 +86,8 @@ class Api
 		.then (result) =>
 			result = result.rsp
 
-			if result.stat[0] != '1'
-				throw new Error "Server respond with error: #{statusCodes[result.stat[0]]} (status code: #{result.stat[0]})"
+			if result.stat != '1'
+				throw new Error "Server respond with error: #{statusCodes[result.stat]} (status code: #{result.stat})"
 
 			delete result.stat
 
