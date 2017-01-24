@@ -5,9 +5,7 @@ const tariffsRelation = require('./lib/tariffs');
 const tariffs = tariffsRelation.getTariffsAsKeys();
 
 module.exports.createApi = function(id, password) {
-	let api = new Api(id, password);
-
-	return api;
+	return new Api(id, password);
 }
 
 module.exports.tariffToProvider = function(tariffId) {

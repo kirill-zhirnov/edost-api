@@ -1,73 +1,53 @@
 Q = require 'q'
 http = require 'http'
 url = require 'url'
-querystring = require 'querystring'
+queryString = require 'querystring'
 {parseString} = require 'xml2js'
 statusCodes = require './statusCodes'
+_ = require 'underscore'
 
 class Api
+	@API_URL : 'http://www.edost.ru/edost_calc_kln.php'
+	
 	constructor : (@shopId, @pass) ->
-		@apiUrl = 'http://www.edost.ru/edost_calc_kln.php'
-		@method = 'POST'
 
-	calcDelivery : (params) ->
-		defered = Q.defer()
-
+	calcDelivery : (toCity, weight, insurance, params = {}) ->
+		deferred = Q.defer()
+		
 		Q()
 		.then () =>
-			data = @prepareParams params
-			return @makeRequest data
+			return @makeRequest @prepareParams(toCity, weight, insurance, params)
 		.then (res) =>
 			return @parseResponse res
 		.then (out) =>
-			defered.resolve out
+			deferred.resolve out
 		.catch (e) =>
-			defered.reject e
+			deferred.reject e
 		.done()
 
-		return defered.promise
+		return deferred.promise
 
-	prepareParams : (params) ->
-		if !params.to_city?
-			throw new Error 'Parameter "to_city" is not specified'
+	prepareParams : (toCity, weight, insurance, params = {}) ->
+		_.extend params, {
+			id: @shopId
+			p: @pass
+			to_city : toCity
+			weight : weight
+			strah : insurance
+		}
 
-		if !params.weight?
-			throw new Error 'Parameter "weight" is not specified'
-
-		if !params.strah?
-			throw new Error 'Parameter "strah" is not specified'
-
-		data =
-			id: @shopId,
-			p: @pass,
-			to_city: params.to_city
-			weight: params.weight
-			strah: params.strah
-
-		if params.ln?
-			data.ln = params.ln
-
-		if params.wd?
-			data.wd = params.wd
-
-		if params.hg?
-			data.hg = params.hg
-
-		if params.zip?
-			data.zip = params.zip
-
-		return data
+		return params
 
 	makeRequest : (postData) ->
-		defered = Q.defer()
+		deferred = Q.defer()
 
-		parsedUrl = url.parse @apiUrl
-		postData = querystring.stringify postData
+		parsedUrl = url.parse @constructor.API_URL
+		postData = queryString.stringify postData
 
 		options = {
 			host: parsedUrl.host,
 			path: parsedUrl.path,
-			method: @method,
+			method: 'POST',
 			headers: {
 				'Content-Type': 'application/x-www-form-urlencoded',
 				'Content-Length': Buffer.byteLength(postData)
@@ -86,21 +66,21 @@ class Api
 				xml += chunk
 
 			res.on 'error', (e) =>
-				defered.reject e
+				deferred.reject e
 
 			res.on 'end', () =>
-				defered.resolve xml
+				deferred.resolve xml
 
 		req.on 'error', (e) =>
-			defered.reject e
+			deferred.reject e
 
 		req.write postData
 		req.end()
 
-		return defered.promise
+		return deferred.promise
 
 	parseResponse : (xml) ->
-		defered = Q.defer()
+		deferred = Q.defer()
 
 		Q.nfcall parseString, xml
 		.then (result) =>
@@ -111,11 +91,11 @@ class Api
 
 			delete result.stat
 
-			defered.resolve result
+			deferred.resolve result
 		.catch (e) =>
-			defered.reject e
+			deferred.reject e
 		.done()
 
-		return defered.promise
+		return deferred.promise
 
 module.exports = Api
