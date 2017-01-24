@@ -91,6 +91,12 @@ class Api
 
 			delete result.stat
 
+			if result.tarif? && !_.isArray result.tarif
+				result.tarif = [result.tarif]
+
+			if result.office? && !_.isArray result.office
+				result.office = [result.office]
+
 			deferred.resolve result
 		.catch (e) =>
 			deferred.reject e
