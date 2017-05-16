@@ -8,7 +8,7 @@ module.exports.getTariffsAsKeys = () ->
 	return out
 
 module.exports.tariffCodes =
-	'russianPost' : [1, 2, 61, 62, 68]
+	'russianPost' : [1, 2, 61, 62, 68, 69, 70, 71, 72, 73, 74]
 
 	'ems' : [3, 18]
 
@@ -49,3 +49,7 @@ module.exports.tariffCodes =
 	'ratek' : [59, 60]
 
 	'inPost' : [67]
+
+	'customCourier' : [31, 32, 33, 34]
+
+	'customSelfPickup' : [35, 56, 57, 58]
